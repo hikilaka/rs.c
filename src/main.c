@@ -93,9 +93,11 @@ void game_update(struct game *game) {
 
     if ((game->mouse_click & GAME_MOUSE_LEFT) != 0) {
         entity_bubble_add(game->mouse_x, game->mouse_y, 0);
+        game->mouse_click &= ~GAME_MOUSE_LEFT;
     }
     if ((game->mouse_click & GAME_MOUSE_RIGHT) != 0) {
         entity_bubble_add(game->mouse_x, game->mouse_y, 1);
+        game->mouse_click &= ~GAME_MOUSE_RIGHT;
     }
 }
 
@@ -119,13 +121,15 @@ void game_render(struct game *game) {
 int main(void) {
     struct game game;
     struct surface surface;
-    memset(&surface, 0, sizeof(struct surface));
-    game_init(&game, "runescape classic", 512, 384);
-
-    surface_init(&surface, &game, 10);
 
     g_game = &game;
     g_screen = &surface;
+
+    memset(&surface, 0, sizeof(struct surface));
+
+    game_init(&game, "runescape classic", 512, 384);
+
+    surface_init(&surface, &game, 10);
 
     game_start(&game);
     game_deinit(&game);

@@ -160,8 +160,6 @@ void engine_loop(struct game *game) {
         }
 
         game_render(game);
-
-        game->mouse_click = 0;
     }
 }
 

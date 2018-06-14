@@ -64,21 +64,21 @@ struct surface {
 };
 
 void surface_init(struct surface *surface, struct game *game,
-		  size_t sprite_cnt);
+                  size_t sprite_cnt);
 
 void surface_release(struct surface *surface);
 
 void surface_sprite_release(struct surface *surface);
 
 size_t surface_sprite_define_rgb_raster(struct surface *surface,
-					uint8_t *raster, uint8_t *palette_r,
-					uint8_t *palette_g, uint8_t *palette_b,
-					size_t width, size_t height);
+                                        uint8_t *raster, uint8_t *palette_r,
+                                        uint8_t *palette_g, uint8_t *palette_b,
+                                        size_t width, size_t height);
 
 size_t surface_font_define(struct surface *surface, uint8_t *font, size_t size);
 
 void surface_set_rect(struct surface *surface, size_t o_x, size_t o_y,
-		      size_t t_x, size_t t_y);
+                      size_t t_x, size_t t_y);
 
 void surface_render_begin(struct surface *surface);
 
@@ -87,20 +87,20 @@ void surface_render_end(struct surface *surface);
 void surface_clear(struct surface *surface);
 
 void surface_text_draw(struct surface *surface, const char *text, size_t x,
-		       size_t y, size_t font, uint32_t color);
+                       size_t y, size_t font, uint32_t color);
 
 void surface_text_draw_cent(struct surface *surface, const char *text, size_t x,
-			    size_t y, size_t font, uint32_t color);
+                            size_t y, size_t font, uint32_t color);
 
 size_t surface_text_width(struct surface *surface, const char *text,
-			  size_t font);
+                          size_t font);
 
 size_t surface_text_height(struct surface *surface, size_t font);
 
 void surface_sprite_plot(struct surface *surface, size_t x, size_t y,
-			 size_t id);
+                         size_t id);
 
 void surface_circle_fill(struct surface *surface, size_t x, size_t y,
-			 size_t radius, uint32_t color, uint8_t opacity);
+                         size_t radius, uint32_t color, uint8_t opacity);
 
 #endif // SURFACE_H
