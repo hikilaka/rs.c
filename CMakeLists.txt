@@ -13,7 +13,16 @@ find_package(SDL2 REQUIRED)
 
 find_package(BZip2 REQUIRED)
 
-add_compile_options(-Wall -Wextra -Wpedantic -g)# -fno-omit-frame-pointer -fsanitize=address,undefined)
+
+option(USE_SANIZITERS "Use Address, undefined behavior, and memory sanitizers" OFF)
+
+
+add_compile_options(-Wall -Wextra -Wpedantic -g)
+
+if (USE_SANITIZERS)
+    set(SANITIZERS -fno-omit-frame-pointer -fsanitize=address,undefined)
+    add_compile_options(-fno-omit-frame-pointer -fsanitize=address,undefined)
+endif(USE_SANITIZERS)
 
 
 add_library(log.c
@@ -48,9 +57,9 @@ target_link_libraries(client
     PUBLIC
         m
         log.c
-        #"-fno-omit-frame-pointer -fsanitize=address,undefined"
         "${SDL2_LIBRARIES}"
-        "${BZIP2_LIBRARIES}")
+        "${BZIP2_LIBRARIES}"
+        "${SANITIZERS}")
 
 target_compile_features(client
     PUBLIC c_std_99)
