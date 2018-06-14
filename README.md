@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hikilaka/rs.c.svg?branch=master)](https://travis-ci.org/hikilaka/rs.c)
+
 # rs.c
 
 rs.c is a RuneScape Classic client implemented in C.
