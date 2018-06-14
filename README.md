@@ -6,13 +6,14 @@ rs.c is a RuneScape Classic client implemented in C.
 To building rs.c, use CMake. 
 ```sh
 $ git clone https://github.com/hikilaka/rs.c
-$ cd rs.c && mkdir build && cd build
+$ cd rs.c && git submodule update --init
+$ mkdir build && cd build
 $ cmake ../ && make
 ```
 
 ## Dependencies
 
-* libbz2 (included with most unix-based systems)
+* libbz2-dev
 * SDL2
 
 ## License
