@@ -6,7 +6,7 @@
 #include <game.h>
 #include <surface.h>
 
-static struct game *g_game;
-static struct surface *g_screen;
+struct game *g_game;
+struct surface *g_screen;
 
 #endif // GLOBALS_H

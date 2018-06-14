@@ -1,7 +1,41 @@
 #include <buffer.h>
 #include <entity.h>
 
+#include <globals.h>
 #include <log.h>
+
+size_t entity_bubble_cnt = 0;
+struct entity_bubble entity_bubbles[ENTITY_MAX_BUBBLE_CNT];
+
+void entity_bubble_add(size_t x, size_t y, size_t type) {
+    if (entity_bubble_cnt >= ENTITY_MAX_BUBBLE_CNT) {
+        return;
+    }
+
+    struct entity_bubble *b = &entity_bubbles[entity_bubble_cnt];
+    b->x = x;
+    b->y = y;
+    b->type = type;
+    b->alive = 0;
+
+    entity_bubble_cnt += 1;
+}
+
+void entity_bubble_render(void) {
+    for (size_t i = 0; i < entity_bubble_cnt; i++) {
+        struct entity_bubble *b = &entity_bubbles[i];
+
+        if (b->type == 0) {
+            surface_circle_fill(g_screen, b->x, b->y, 20 + (b->alive * 2),
+                                255 + (b->alive * 5 * 256),
+                                255 - (b->alive * 5));
+        } else {
+            surface_circle_fill(g_screen, b->x, b->y, 10 + b->alive,
+                                0xFF0000 + (b->alive * 5 * 256),
+                                255 - (b->alive * 5));
+        }
+    }
+}
 
 size_t jagex_logo_decode(struct surface *surface, struct jag_arc_entry *entry) {
     struct buffer buf;

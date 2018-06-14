@@ -319,14 +319,12 @@ void surface_sprite_plot(struct surface *surface, size_t x, size_t y,
         s_ptr += dx;
         ptr_step += dx;
         s_ptr_step += dx;
-        log_info("dx = %zu", dx);
     }
     if (x + w > surface->top_x) {
         int32_t dx = x + w - (int32_t)surface->top_x + 1;
         w -= dx;
         ptr_step += dx;
         s_ptr_step += dx;
-        log_info("dx2 = %zu", dx);
     }
     if (w <= 0 || h <= 0) {
         return;
