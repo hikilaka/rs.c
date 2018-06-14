@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1...3.11)
 
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 if(${CMAKE_VERSION} VERSION_LESS 3.12)
     cmake_policy(VERSION ${CMAKE_VERSION})
 endif()
@@ -13,7 +15,7 @@ find_package(SDL2 REQUIRED)
 
 find_package(BZip2 REQUIRED)
 
-add_compile_options(-Wall -Wextra -Wpedantic -O3)# -g -fno-omit-frame-pointer -fsanitize=address,undefined)
+add_compile_options(-Wall -Wextra -Wpedantic -g -fno-omit-frame-pointer -fsanitize=address,undefined)
 
 
 add_library(log.c
@@ -48,7 +50,7 @@ target_link_libraries(client
     PUBLIC
         m
         log.c
-#       "-fno-omit-frame-pointer -fsanitize=address,undefined"
+        "-fno-omit-frame-pointer -fsanitize=address,undefined"
         "${SDL2_LIBRARIES}"
         "${BZIP2_LIBRARIES}")
 
