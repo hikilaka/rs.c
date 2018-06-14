@@ -5,9 +5,8 @@ rs.c is a RuneScape Classic client implemented in C.
 ## Building
 To building rs.c, use CMake. 
 ```sh
-$ git clone https://github.com/hikilaka/rs.c
-$ cd rs.c && git submodule update --init
-$ mkdir build && cd build
+$ git clone -- rescurse-submodules https://github.com/hikilaka/rs.c
+$ cd rs.c && mkdir build && cd build
 $ cmake ../ && make
 ```
 
