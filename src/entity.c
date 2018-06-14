@@ -37,17 +37,17 @@ void entity_bubble_render(void) {
     }
 }
 
-size_t jagex_logo_decode(struct surface *surface, struct jag_arc_entry *entry) {
+size_t entity_tga_decode(struct jag_arc_entry *entry) {
     struct buffer buf;
     buffer_wrap(&buf, entry->data, entry->size);
 
     // skip the first 12 bytes
-    buf.caret = 11;
+    buf.caret = 12;
 
     uint16_t width = 0, height = 0;
 
-    buffer_get2(&buf, &width);
-    buffer_get2(&buf, &height);
+    buffer_get2le(&buf, &width);
+    buffer_get2le(&buf, &height);
 
     uint8_t palette_r[256];
     uint8_t palette_g[256];
@@ -60,15 +60,16 @@ size_t jagex_logo_decode(struct surface *surface, struct jag_arc_entry *entry) {
     }
 
     uint8_t *raster = malloc(sizeof(uint8_t) * (width * height));
+    size_t ptr = 0;
 
     for (size_t y = height - 1; y-- > 0;) {
         for (size_t x = 0; x < width; x++) {
-            raster[x + (y * width)] = buf.data[768 + x + (y * width)];
+            raster[ptr++] = buf.data[786 + x + (y * width)];
         }
     }
 
     size_t id = surface_sprite_define_rgb_raster(
-        surface, raster, palette_r, palette_g, palette_b, width, height);
+        g_screen, raster, palette_r, palette_g, palette_b, width, height);
 
     free(raster);
     return id;

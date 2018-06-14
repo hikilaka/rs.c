@@ -25,6 +25,16 @@ int buffer_get2(struct buffer *buf, uint16_t *out) {
     return 0;
 }
 
+int buffer_get2le(struct buffer *buf, uint16_t *out) {
+    if (buf->caret + 1 >= buf->size) {
+        return -1;
+    }
+    *out |= ((buf->data[buf->caret + 1] & 0xff) << 8);
+    *out |= (buf->data[buf->caret] & 0xff);
+    buf->caret += 2;
+    return 0;
+}
+
 int buffer_get3(struct buffer *buf, uint32_t *out) {
     if (buf->caret + 2 >= buf->size) {
         return -1;
@@ -49,10 +59,8 @@ int buffer_get4(struct buffer *buf, uint32_t *out) {
 }
 
 int buffer_get8(struct buffer *buf, uint64_t *out) {
-    // int error = buffer_get4(buf, out);
-    //*out >>= 32;
-    // error |= buffer_get4(buf, out);
-    (void)buf;
-    (void)out;
-    return -5;
+    int error = buffer_get4(buf, (uint32_t *)out);
+    *out <<= 32;
+    error |= buffer_get4(buf, (uint32_t *)out);
+    return error;
 }

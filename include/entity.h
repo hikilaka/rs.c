@@ -18,7 +18,7 @@ struct entity_bubble {
 extern size_t entity_bubble_cnt;
 extern struct entity_bubble entity_bubbles[ENTITY_MAX_BUBBLE_CNT];
 
-size_t jagex_logo_decode(struct surface *surface, struct jag_arc_entry *entry);
+size_t entity_tga_decode(struct jag_arc_entry *entry);
 
 void entity_bubble_add(size_t x, size_t y, size_t type);
 

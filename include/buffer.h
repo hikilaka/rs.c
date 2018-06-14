@@ -18,6 +18,8 @@ int buffer_get(struct buffer *buf, uint8_t *out);
 
 int buffer_get2(struct buffer *buf, uint16_t *out);
 
+int buffer_get2le(struct buffer *buf, uint16_t *out);
+
 int buffer_get3(struct buffer *buf, uint32_t *out);
 
 int buffer_get4(struct buffer *buf, uint32_t *out);

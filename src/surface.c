@@ -125,15 +125,11 @@ size_t surface_sprite_define_rgb_raster(struct surface *surface,
     sprite->trans_x = 0;
     sprite->trans_y = 0;
 
-    size_t ptr = 0;
     for (size_t i = 0; i < (width * height); i++) {
-        sprite->pixels[ptr] = (0xff << 24) | (palette_r[raster[i]] >> 16) |
-                              (palette_g[raster[i]] >> 8) |
-                              (palette_b[raster[i]]);
+        sprite->pixels[i] = (0xff << 24) | (palette_r[raster[i]] << 16) |
+                            (palette_g[raster[i]] << 8) |
+                            (palette_b[raster[i]]);
     }
-
-    log_info("set sprite %zu to %ux%u, addr=0x%zx, arr=0x%zu", index,
-             sprite->width, sprite->height, sprite, surface->sprites[index]);
 
     return index;
 }
@@ -196,7 +192,7 @@ void surface_clear(struct surface *surface) {
 
     for (size_t y = 0; y < surface->game->height; y += step) {
         for (size_t x = 0; x < surface->game->width; x++) {
-            surface->pixels[ptr++] = SURFACE_DARK_GRAY;
+            surface->pixels[ptr++] = SURFACE_BLACK;
         }
     }
 }

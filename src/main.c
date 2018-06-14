@@ -21,24 +21,28 @@ void game_load_resources(struct game *game) {
     }
 
     struct jag_arc_entry *entry = jag_arc_get(&jagex_arc, "logo.tga");
-    sprite_jag_logo = jagex_logo_decode(g_screen, entry);
+    sprite_jag_logo = entity_tga_decode(entry);
 
-    entry = jag_arc_get(&jagex_arc, "h11p.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h12b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h12p.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h13b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h14b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h16b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h20b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
-    entry = jag_arc_get(&jagex_arc, "h24b.jf");
-    surface_font_define(g_screen, entry->data, entry->size);
+#define load_font(name)                                                        \
+    do {                                                                       \
+        entry = jag_arc_get(&jagex_arc, name);                                 \
+        if (entry == NULL) {                                                   \
+            log_fatal("failed to load %s from jagex.jag", name);               \
+            return;                                                            \
+        }                                                                      \
+        surface_font_define(g_screen, entry->data, entry->size);               \
+    } while (0);
+
+    load_font("h11p.jf");
+    load_font("h12b.jf");
+    load_font("h12p.jf");
+    load_font("h13b.jf");
+    load_font("h14b.jf");
+    load_font("h16b.jf");
+    load_font("h20b.jf");
+    load_font("h24b.jf");
+
+#undef load_font
 
     jag_arc_unload(&jagex_arc);
 
@@ -100,17 +104,13 @@ void game_render(struct game *game) {
     surface_render_begin(g_screen);
     surface_clear(g_screen);
 
-    // surface_sprite_plot(g_screen, 100, 100, sprite_jag_logo);
+    surface_sprite_plot(g_screen, (game->width / 2) - 140, 100,
+                        sprite_jag_logo);
+
+    surface_text_draw_cent(g_screen, "sucks", game->width / 2, 200,
+                           SURFACE_FONT_XXL_BOLD, SURFACE_ORANGE);
+
     entity_bubble_render();
-
-    size_t x = game->width / 2;
-    size_t y = game->height / 4;
-    const char *text = "hello @ran@w@ran@o@ran@r@ran@l@ran@d@ran@!";
-
-    for (size_t font = 0; font < g_screen->font_cnt; font++) {
-        surface_text_draw_cent(g_screen, text, x, y, font, SURFACE_GREEN);
-        y += surface_text_height(g_screen, font);
-    }
 
     draw_sys_info();
     surface_render_end(g_screen);
