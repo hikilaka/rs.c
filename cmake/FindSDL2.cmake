@@ -1,0 +1,23 @@
+# - Try to locate SDL2
+# This module defines:
+#
+#  SDL2_INCLUDE_DIR
+#  SDL2_LIBRARY, SDL2MAIN_LIBRARY
+#  SDL2_FOUND
+#
+
+find_path(SDL2_INCLUDE_DIR NAMES SDL.h PATH_SUFFIXES SDL2)
+
+find_library(SDL2_LIBRARY NAMES SDL2)
+find_library(SDL2MAIN_LIBRARY NAMES SDL2main)
+
+include(FindPackageHandleStandardArgs)
+
+if(UNIX)
+    # Fedora has reportedly dropped SDLmain, so don't treat it as mandatory on *nix
+    FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2 REQUIRED_VARS SDL2_LIBRARY SDL2_INCLUDE_DIR)
+else(UNIX)
+    FIND_PACKAGE_HANDLE_STANDARD_ARGS(SDL2 REQUIRED_VARS SDL2_LIBRARY SDL2MAIN_LIBRARY SDL2_INCLUDE_DIR)
+endif(UNIX)
+
+mark_as_advanced(SDL2_INCLUDE_DIR SDL2_LIBRARY SDL2MAIN_LIBRARY)
