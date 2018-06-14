@@ -4,14 +4,7 @@ language: c
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y libegl1-mesa-dev libgles2-mesa-dev
-    - sudo apt-get install -y libbz2-dev
-    - |
-        travis_retry curl -L https://www.libsdl.org/release/SDL2-2.0.8.tar.gz | tar xz
-        cd SDL2-2.0.8
-        ./configure
-        make -j2
-        sudo make install
-        cd ../
+    - sudo apt-get install -y libbz2-dev libsdl2-dev
 script:
     - cmake .
     - cmake --build . -- -j2
