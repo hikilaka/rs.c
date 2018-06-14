@@ -17,12 +17,12 @@ struct bubble {
     size_t alive;
 };
 
-static const size_t max_bubble_cnt = 50;
+#define MAX_BUBBLE_CNT 50
 static size_t bubble_cnt = 0;
-static struct bubble bubbles[max_bubble_cnt];
+static struct bubble bubbles[MAX_BUBBLE_CNT];
 
 void bubble_add(size_t x, size_t y, size_t type) {
-    if (bubble_cnt >= max_bubble_cnt) {
+    if (bubble_cnt >= MAX_BUBBLE_CNT) {
         return;
     }
     struct bubble *b = &bubbles[bubble_cnt++];
