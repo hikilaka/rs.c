@@ -47,7 +47,8 @@ add_executable(client
     "${CMAKE_CURRENT_SOURCE_DIR}/src/buffer.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/entity.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/model.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/sin_table.c")
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/sin_table.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/math_ops.c")
     
 
 target_include_directories(client
